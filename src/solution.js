@@ -1,26 +1,34 @@
-const itemRegex = /item (\d+)/g;
-const itemNumberRegex = /(\d+)/g;
+const ITEM_REGEX = /^item (\d+)$/g;
+const ITEM_NUMBER_REGEX = /(\d+)/g;
 
 const hasNameProperty = (elem) => {
     return typeof elem.name !== "undefined";
 }
 
+const hasStrictNameValue = (elem) => {
+    const hasStrictNameRegex = elem.name.match(ITEM_REGEX);
+
+    return hasStrictNameRegex ? hasStrictNameRegex.length > 0 : false;
+}
+
+const getItemNumber = (name) => {
+    return Number(name.match(ITEM_NUMBER_REGEX)[0]);
+}
+
 const getItemsMaxNumber = (items) => {
     let max = 0;
 
-    items.filter(elem => {
-        return typeof elem.name !== "undefined";
-    }).filter(elem => {
-        return elem.name.match(itemRegex).length > 0;
-    }).forEach((elem) => {
-        const itemNumber = Number(elem.name.match(itemNumberRegex)[0]);
+    items
+        .filter(hasNameProperty)
+        .filter(hasStrictNameValue)
+        .forEach((elem) => {
+            const itemNumber = getItemNumber(elem.name);
 
-        if (max < itemNumber) {
-            max = itemNumber;
-        }
-    });
+            if (max < itemNumber) {
+                max = itemNumber;
+            }
+        });
 
-    console.log("Hello World again 2!");
     return max;
 };
 
