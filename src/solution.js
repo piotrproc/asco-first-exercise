@@ -4,14 +4,18 @@ const hasNameProperty = (elem) => {
     return typeof elem.name !== "undefined";
 }
 
+const getRegexFromElem = (elem) => {
+    return elem.name.match(ITEM_REGEX);
+}
+
 const hasStrictNameValue = (elem) => {
-    const hasStrictNameRegex = elem.name.match(ITEM_REGEX);
+    const hasStrictNameRegex = getRegexFromElem(elem);
 
     return hasStrictNameRegex ? hasStrictNameRegex.length > 1 : false;
 }
 
 const getItemNumber = (elem) => {
-    return Number(elem.name.match(ITEM_REGEX)[1]);
+    return Number(getRegexFromElem(elem)[1]);
 }
 
 const getItemsMaxNumber = (items) => {
