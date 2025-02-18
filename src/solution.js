@@ -1,5 +1,4 @@
-const ITEM_REGEX = /^item (\d+)$/g;
-const ITEM_NUMBER_REGEX = /(\d+)/g;
+const ITEM_REGEX = /^item (\d+)$/;
 
 const hasNameProperty = (elem) => {
     return typeof elem.name !== "undefined";
@@ -8,11 +7,11 @@ const hasNameProperty = (elem) => {
 const hasStrictNameValue = (elem) => {
     const hasStrictNameRegex = elem.name.match(ITEM_REGEX);
 
-    return hasStrictNameRegex ? hasStrictNameRegex.length > 0 : false;
+    return hasStrictNameRegex ? hasStrictNameRegex.length > 1 : false;
 }
 
 const getItemNumber = (name) => {
-    return Number(name.match(ITEM_NUMBER_REGEX)[0]);
+    return Number(ITEM_REGEX.exec(name)[1]);
 }
 
 const getItemsMaxNumber = (items) => {
