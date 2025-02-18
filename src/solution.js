@@ -10,8 +10,8 @@ const hasStrictNameValue = (elem) => {
     return hasStrictNameRegex ? hasStrictNameRegex.length > 1 : false;
 }
 
-const getItemNumber = (name) => {
-    return Number(ITEM_REGEX.exec(name)[1]);
+const getItemNumber = (elem) => {
+    return Number(elem.name.match(ITEM_REGEX)[1]);
 }
 
 const getItemsMaxNumber = (items) => {
@@ -21,7 +21,7 @@ const getItemsMaxNumber = (items) => {
         .filter(hasNameProperty)
         .filter(hasStrictNameValue)
         .forEach((elem) => {
-            const itemNumber = getItemNumber(elem.name);
+            const itemNumber = getItemNumber(elem);
 
             if (max < itemNumber) {
                 max = itemNumber;
